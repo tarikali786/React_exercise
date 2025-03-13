@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import { Form } from "./page/form";
-import { Memo } from "./page/hooks";
+import { Memo, UseCallbackComponent } from "./page/hooks";
 
 function App() {
   const [formValue, setFormValue] = useState({ name: "", age: "" });
@@ -13,6 +13,9 @@ function App() {
     }));
   };
 
+  const printName = useCallback(() => {
+    return `hello : ${formValue?.name}`;
+  }, [formValue?.name]);
   return (
     <div className="w-full h-[100vh] flex justify-center items-center flex-col ">
       <div className="w-1/2 h-1/2 border p-5">
@@ -35,6 +38,7 @@ function App() {
           />
         </form>
         <Memo formValue={formValue} />
+        <UseCallbackComponent printName={printName} />
       </div>
     </div>
   );
