@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { Form } from "./page/form";
+import { Memo } from "./page/hooks";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [formValue, setFormValue] = useState({ name: "", age: "" });
+  const handleInputChange = ({ target }) => {
+    const { name, value } = target;
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="w-full h-[100vh] flex justify-center items-center flex-col ">
+      <div className="w-1/2 h-1/2 border p-5">
+        <form action="" className="flex flex-col space-y-4">
+          <input
+            type="text"
+            placeholder="name"
+            value={formValue?.name}
+            className="border p-2 rounded-md"
+            onChange={handleInputChange}
+            name="name"
+          />
+          <input
+            type="text"
+            placeholder="age"
+            value={formValue?.age}
+            className="border p-2  rounded-md "
+            onChange={handleInputChange}
+            name="age"
+          />
+        </form>
+        <Memo formValue={formValue} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
