@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import "./App.css";
 import { Form } from "./page/form";
-import { Memo, UseCallbackComponent } from "./page/hooks";
+import { Memo, UseCallbackComponent, UseMemoComponent } from "./page/hooks";
 
 function App() {
-  const [formValue, setFormValue] = useState({ name: "", age: "" });
+  const [formValue, setFormValue] = useState({ name: "", num: "" });
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
     setFormValue((prev) => ({
@@ -16,6 +16,7 @@ function App() {
   const printName = useCallback(() => {
     return `hello : ${formValue?.name}`;
   }, [formValue?.name]);
+
   return (
     <div className="w-full h-[100vh] flex justify-center items-center flex-col ">
       <div className="w-1/2 h-1/2 border p-5">
@@ -29,16 +30,17 @@ function App() {
             name="name"
           />
           <input
-            type="text"
+            type="number"
             placeholder="age"
-            value={formValue?.age}
+            value={formValue?.num}
             className="border p-2  rounded-md "
             onChange={handleInputChange}
-            name="age"
+            name="num"
           />
         </form>
         <Memo formValue={formValue} />
         <UseCallbackComponent printName={printName} />
+        <UseMemoComponent formValue={formValue} />
       </div>
     </div>
   );
